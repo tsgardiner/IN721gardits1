@@ -12,28 +12,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the new text."
+        android:text="@string/application_author"
         android:textSize="@dimen/abc_text_size_headline_material"
-        android:id="@+id/textView" />
+        android:id="@+id/AuthorText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_marginTop="144dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="New text"
-        android:textAlignment="center"
-        android:editable="false" />
+
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/abc_text_size_display_3_material"
-        android:id="@+id/imageView"
-        android:layout_below="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageOfPuppy"
+        android:background="@drawable/puppy"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp"
-        android:background="#d71212" />
+        android:layout_marginBottom="37dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/breedTextView"
+        android:layout_above="@+id/imageOfPuppy"
+        android:layout_alignLeft="@+id/imageOfPuppy"
+        android:layout_alignStart="@+id/imageOfPuppy"
+        android:layout_marginBottom="64dp"
+        android:layout_alignRight="@+id/imageOfPuppy"
+        android:layout_alignEnd="@+id/imageOfPuppy"
+        android:textAlignment="center" />
 </RelativeLayout>
