@@ -8,7 +8,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     int dates[];
-    String febFridayDates;
+    String febFridayDates = "";
     TextView textString;
 
     @Override
@@ -25,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         dates = r.getIntArray(R.array.FebFridays);
         textString = (TextView) findViewById(R.id.fridayTextBox);
-        
+
         febFridayDates += "Feburay Fridays are on: ";
-        for (int i = 0; i < dates.length; i++) {
-            febFridayDates += Integer.toString(dates[i]);
+        for (int date : dates) {
+            febFridayDates += Integer.toString(date);
+            febFridayDates += " ";
         }
 
         textString.setText(febFridayDates);
