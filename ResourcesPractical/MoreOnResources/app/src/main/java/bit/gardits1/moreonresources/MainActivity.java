@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         dates = r.getIntArray(R.array.FebFridays);
         textString = (TextView) findViewById(R.id.fridayTextBox);
 
-        febFridayDates += "Feburay Fridays are on: ";
+        febFridayDates += "February Fridays are on: ";
         for (int date : dates) {
             febFridayDates += Integer.toString(date);
             febFridayDates += " ";
