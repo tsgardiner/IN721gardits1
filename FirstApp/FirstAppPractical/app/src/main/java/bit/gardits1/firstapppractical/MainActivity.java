@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         rand = new Random();
         randomDog = rand.nextInt(4);
         dogBreed = breeds[randomDog];
-
         txtRandomString.setText(dogBreed);
     }
 }
