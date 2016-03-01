@@ -14,106 +14,51 @@
         android:layout_height="wrap_content"
         android:text="Enroll for Music Lessons"
         android:id="@+id/textView"
-        android:textSize="26dp"
+        android:textSize="28dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textAlignment="center"
-        android:textStyle="bold" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:background="@color/colorViewLines"
-        android:id="@+id/view"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:background="@color/colorViewLines"
-        android:id="@+id/view1"
-        android:layout_below="@+id/spinnerMonths"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Choose your instrument"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp" />
+        android:textAlignment="center" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="73dp"
         android:id="@+id/RadioGroup_Instruments"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Accordion"
             android:id="@+id/accordionRadioButton"
-            android:layout_gravity="left"
-            android:textSize="@dimen/abc_text_size_medium_material" />
+            android:layout_gravity="left" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bassoon"
             android:id="@+id/bassonRadioButton"
-            android:layout_gravity="left"
-            android:textSize="@dimen/abc_text_size_medium_material" />
+            android:layout_gravity="left" />
 
         <RadioButton
             android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:text="Cello"
             android:id="@+id/celloRadioButton"
-            android:layout_gravity="left"
-            android:textSize="@dimen/abc_text_size_medium_material" />
+            android:layout_gravity="left" />
 
     </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Enrolment"
+        android:text="Confirm"
         android:id="@+id/confirmButton"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/view1"
-        android:layout_centerHorizontal="true" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerMonths"
-        style="?android:attr/spinnerDropDownItemStyle"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="When do you want to start?"
-        android:id="@+id/textView3"
         android:layout_below="@+id/RadioGroup_Instruments"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="27dp" />
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp" />
 </RelativeLayout>
