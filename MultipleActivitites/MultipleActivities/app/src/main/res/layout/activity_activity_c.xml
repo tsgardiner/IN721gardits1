@@ -9,4 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="bit.gardits1.multipleactivities.ActivityC">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/screenThreeName"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_action_button_min_width_overflow_material" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonThreeName"
+        android:id="@+id/btnActivityC"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="165dp"
+        android:textSize="@dimen/abc_dialog_padding_material" />
 </RelativeLayout>
