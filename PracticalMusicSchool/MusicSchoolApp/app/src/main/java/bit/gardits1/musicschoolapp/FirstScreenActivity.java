@@ -10,13 +10,18 @@ import android.widget.Button;
 
 public class FirstScreenActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_screen);
 
+        int SCREEN_DELAY = this.getResources().getInteger(R.integer.startDelayInMS);
+
         /*Button btnFirstScreen = (Button) findViewById(R.id.btnFirstScreen);
         btnFirstScreen.setOnClickListener(new btnListenerFirstScreen());*/
+
 
         Handler handler = new Handler();
 
@@ -26,7 +31,7 @@ public class FirstScreenActivity extends AppCompatActivity {
                 Intent openCourseSelection = new Intent(FirstScreenActivity.this, MainActivity.class);
                 startActivity(openCourseSelection);
             }
-        }, R.integer.startDelayInMS);
+        }, SCREEN_DELAY);
 
     }
 
