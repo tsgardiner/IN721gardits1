@@ -49,6 +49,4 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "You have enrolled for " + selectedInstrument.getText() + " lessons on " + monthSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
