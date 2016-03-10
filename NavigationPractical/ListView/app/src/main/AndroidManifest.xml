@@ -15,10 +15,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dunedinActivities" />
-        <activity android:name=".dunedinShopping" />
-        <activity android:name=".dunedinDining" />
-        <activity android:name=".dunedinServices"></activity>
+        <activity android:name=".dunedinActivities"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".dunedinShopping"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".dunedinDining"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".dunedinServices"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
