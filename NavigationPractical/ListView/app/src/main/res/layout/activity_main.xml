@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50sp"
         android:id="@+id/ivBannerImage"
-        android:src="@drawable/customhouse"
+        android:src="@drawable/octagon"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
