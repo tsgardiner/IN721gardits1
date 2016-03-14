@@ -23,9 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Image Fragment"
+            android:text="@string/imageView_title"
             android:id="@+id/textView"
-            android:layout_marginBottom="46dp"
             android:layout_above="@+id/imageView"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>

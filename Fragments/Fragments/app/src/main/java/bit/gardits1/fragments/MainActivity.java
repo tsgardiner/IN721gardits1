@@ -16,12 +16,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnImageFragment = (Button) findViewById(R.id.btnImage);
-        btnImageFragment.setOnClickListener(new ButtonClickHandler());
+        Button butListFragment = (Button) findViewById(R.id.btnListView);
+        butListFragment.setOnClickListener(new ButtonClickListHandler());
+        btnImageFragment.setOnClickListener(new ButtonClickImageHandler());
     }
 
 
 
-    public class ButtonClickHandler implements View.OnClickListener
+    public class ButtonClickImageHandler implements View.OnClickListener
     {
 
         @Override
@@ -30,9 +32,23 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_image_container, dynamicFragment);
+            fragmentTransaction.replace(R.id.fragment_container, dynamicFragment);
             fragmentTransaction.commit();
 
+        }
+    }
+
+    public class ButtonClickListHandler implements View.OnClickListener
+    {
+
+        @Override
+        public void onClick(View v) {
+            Fragment dynamicFragment = new ListViewFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, dynamicFragment);
+            fragmentTransaction.commit();
         }
     }
 }

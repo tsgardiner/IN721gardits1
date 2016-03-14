@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Fragments</string>
+    <string name="listView_title">List View Fragment</string>
+    <string name="mainPage_title">Fragments</string>
+    <string name="imageView_title">Image View Fragment</string>
+    <string name="btn_imageView">Show Image View</string>
+    <string name="btn_listView">Show List View</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="cities">
+        <item>Nelson</item>
+        <item>Dunedin</item>
+        <item>Christchurch</item>
+        <item>Wellington</item>
+    </string-array>
+
 </resources>

@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class ListViewFragment extends Fragment {
@@ -16,7 +18,18 @@ public class ListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_view, container, false);
+
+        View fragmentView = inflater.inflate(R.layout.fragment_list_view, container, false);
+
+        ListView lvCities = (ListView) fragmentView.findViewById(R.id.lvCities);
+
+        String[] cityNamesArray = getResources().getStringArray(R.array.cities);
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, cityNamesArray);
+
+        lvCities.setAdapter(cityAdapter);
+
+        return fragmentView;
     }
 
 
