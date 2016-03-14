@@ -24,9 +24,17 @@
         android:layout_height="wrap_content"
         android:text="Show Image Fragment"
         android:id="@+id/btnImage"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="49dp" />
+        android:layout_marginTop="161dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Fragment"
+        android:id="@+id/button"
+        android:layout_below="@+id/btnImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="101dp" />
 
 </RelativeLayout>
