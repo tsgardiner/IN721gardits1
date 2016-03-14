@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, dynamicFragment);
+            fragmentTransaction.replace(R.id.fragment_container_image, dynamicFragment);
             fragmentTransaction.commit();
 
         }
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, dynamicFragment);
+            fragmentTransaction.replace(R.id.fragment_container_list, dynamicFragment);
             fragmentTransaction.commit();
         }
     }
