@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">UserName</string>
+    <string name="launch_title">Your username:</string>
+    <string name="username_text">No username chosen yet...</string>
+    <string name="setting_button">Go To Settings</string>
+    <string name="enter_username_title">Enter Your Username:</string>
+    <string name="return_button">Return To Main</string>
+</resources>
