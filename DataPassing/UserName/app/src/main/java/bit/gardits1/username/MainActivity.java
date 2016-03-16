@@ -20,10 +20,11 @@ public class MainActivity extends AppCompatActivity {
         btnGoToSettings.setOnClickListener(new buttonGoToSettingsHandler());
 
         Intent launchIntent = getIntent();
+        TextView username = (TextView) findViewById(R.id.tvUsername);
 
-        if (findViewById(R.id.tvUsername).toString() == getResources().getString(R.string.username_text))
+        if (username.getText() == getResources().getString(R.string.username_text))
         {
-            Toast.makeText(this,"Please Enter a Username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Please Enter a Username", Toast.LENGTH_LONG).show();
         }
         else {
             TextView usernameText = (TextView) findViewById(R.id.tvUsername);
