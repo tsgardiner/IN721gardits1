@@ -21,15 +21,19 @@ public class MainActivity extends AppCompatActivity {
 
         Intent launchIntent = getIntent();
         TextView username = (TextView) findViewById(R.id.tvUsername);
+        String enteredUsername;
+        enteredUsername = launchIntent.getStringExtra("Username");
 
-        if (username.getText() == getResources().getString(R.string.username_text))
+        if (enteredUsername != null)
+        {
+            username.setText(enteredUsername);
+        }
+        else  if (username.getText() == getResources().getString(R.string.username_text))
         {
             Toast.makeText(this,"Please Enter a Username", Toast.LENGTH_LONG).show();
         }
-        else {
-            TextView usernameText = (TextView) findViewById(R.id.tvUsername);
-            usernameText.setText(launchIntent.getStringExtra("Username"));
-        }
+
+
     }
 
 

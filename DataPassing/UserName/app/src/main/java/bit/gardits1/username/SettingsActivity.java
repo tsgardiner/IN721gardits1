@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
             String username = usernameText.getText().toString();
 
             if (username.length() < 5) {
-                Toast.makeText(SettingsActivity.this, "Username must be atleast 5 characters long", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "Username must be at least 5 characters long", Toast.LENGTH_LONG).show();
             }
             else{
                 returnIntent.putExtra("Username", username);
