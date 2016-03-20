@@ -5,5 +5,5 @@ package bit.gardits1.musicschoolapp;
  */
 public interface IGiveData {
 
-    boolean giveMeMyData(Boolean confirmation);
+    void giveMeMyData(Boolean confirmation);
 }

@@ -22,13 +22,13 @@ public class ConfirmDialog extends DialogFragment {
     public ConfirmDialog() {
         // Required empty public constructor
     }
-    
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Enrollment");
+        builder.setTitle("Confirm Enrollment");
         builder.setPositiveButton("Yes", new YesButtonHandler());
         builder.setNegativeButton("No", new NoButtonHandler());
 
@@ -37,8 +37,7 @@ public class ConfirmDialog extends DialogFragment {
         return customDialog;
     }
 
-    public class YesButtonHandler implements DialogInterface.OnClickListener
-    {
+    public class YesButtonHandler implements DialogInterface.OnClickListener {
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
