@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LanguageTrainer</string>
+
+    <string name="Der">Der</string>
+    <string name="Das">Das</string>
+    <string name="Die">Die</string>
+    <string name="Masculine">Masculine</string>
+    <string name="Neutral">Neutral</string>
+    <string name="Feminine">Feminine</string>
+
+
 </resources>

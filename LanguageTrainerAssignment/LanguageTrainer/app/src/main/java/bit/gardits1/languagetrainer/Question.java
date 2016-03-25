@@ -9,13 +9,14 @@ public class Question {
     protected String englishWord;
     protected String noun;
     protected String article;
+    protected String gender;
     protected String imageString;
 
-    public Question(String englishWord, String noun, String article, String imageString) {
+    public Question(String englishWord, String noun, String article, String gender) {
         this.englishWord = englishWord;
         this.noun = noun;
         this.article = article;
-        this.imageString = imageString;
+        this.gender = gender;
     }
 
 
