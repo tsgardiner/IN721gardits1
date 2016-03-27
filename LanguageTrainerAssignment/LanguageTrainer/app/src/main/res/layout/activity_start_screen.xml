@@ -9,8 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="bit.gardits1.languagetrainer.StartScreenActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/startbutton"
+        android:id="@+id/btnStart"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -12,7 +12,7 @@ public class QuestionManager {
 //    Needs to keep score
 //    Needs control what happens between each screen
 
-    ArrayList<Question> questionsList;
+    public static ArrayList<Question> questionsList;
     String[] nouns;
     String[] englishWords;
 

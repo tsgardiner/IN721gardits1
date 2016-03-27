@@ -9,4 +9,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="bit.gardits1.languagetrainer.QuestionDisplayActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="111dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ansSpinner"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmbutton"
+        android:id="@+id/btnConfrimAns"
+        android:layout_below="@+id/ansSpinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp" />
+
 </RelativeLayout>

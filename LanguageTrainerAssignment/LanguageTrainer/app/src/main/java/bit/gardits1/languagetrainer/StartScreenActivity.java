@@ -1,7 +1,10 @@
 package bit.gardits1.languagetrainer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import java.lang.reflect.Array;
 
@@ -21,6 +24,19 @@ public class StartScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_screen);
 
         setQuestionManager();
+
+        Button startButton = (Button) findViewById(R.id.btnStart);
+        startButton.setOnClickListener(new startButtonHandler());
+    }
+
+    public class startButtonHandler implements View.OnClickListener
+    {
+
+        @Override
+        public void onClick(View v) {
+            Intent openQuestionGame = new Intent(StartScreenActivity.this, QuestionDisplayActivity.class);
+            startActivity(openQuestionGame);
+        }
     }
 
 
