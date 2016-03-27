@@ -1,6 +1,9 @@
 package bit.gardits1.languagetrainer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -30,6 +33,7 @@ public class QuestionManager {
         questionsList = new ArrayList<>();
 
         buildQuestions();
+        shuffleQuestions();
     }
 
     private void buildQuestions()
@@ -44,7 +48,14 @@ public class QuestionManager {
         questionsList.add(new Question(englishWords[7], nouns[7], Feminine , DIE ));
         questionsList.add(new Question(englishWords[8], nouns[8], Neutral , DAS ));
         questionsList.add(new Question(englishWords[9], nouns[9], Feminine , DIE ));
-        questionsList.add(new Question(englishWords[10], nouns[10], Masculine , DER));
+        questionsList.add(new Question(englishWords[10], nouns[10], Masculine, DER));
     }
+
+    private void shuffleQuestions()
+    {
+        for (int i = 0; i < 100; i++)
+            Collections.shuffle(questionsList);
+    }
+
 
 }
