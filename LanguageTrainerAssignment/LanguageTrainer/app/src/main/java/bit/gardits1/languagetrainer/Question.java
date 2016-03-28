@@ -12,45 +12,19 @@ public class Question {
     protected String gender;
     protected String imageString;
 
-    public Question(String englishWord, String noun, String article, String gender) {
+    public Question(String englishWord, String noun, String gender, String article, String imageString) {
         this.englishWord = englishWord;
         this.noun = noun;
         this.article = article;
         this.gender = gender;
-    }
-
-
-    public String getEnglishWord() {
-        return englishWord;
-    }
-
-    public void setEnglishWord(String englishWord) {
-        this.englishWord = englishWord;
-    }
-
-    public String getNoun() {
-        return noun;
-    }
-
-    public void setNoun(String noun) {
-        this.noun = noun;
-    }
-
-    public String getArticle() {
-        return article;
-    }
-
-    public void setArticle(String article) {
-        this.article = article;
-    }
-
-    public String getImageString() {
-        return imageString;
-    }
-
-    public void setImageString(String imageString) {
         this.imageString = imageString;
     }
+
+
+    public String getEnglishWord() { return englishWord; }
+    public String getNoun() { return noun;   }
+    public String getArticle() { return article; }
+    public String getImageString() { return imageString; }
 
 }
 
