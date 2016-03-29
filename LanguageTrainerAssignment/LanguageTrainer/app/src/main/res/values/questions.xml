@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="nouns">
+        <item>Apfel</item>
+        <item>Auto</item>
+        <item>Baum</item>
+        <item>Ente</item>
+        <item>Haus</item>
+        <item>Hexe</item>
+        <item>Kuh</item>
+        <item>Milch</item>
+        <item>Schaf</item>
+        <item>Strasse</item>
+        <item>Stuhl</item>
+    </string-array>
+
+    <string-array name="englishwords">
+        <item>Apple</item>
+        <item>Car</item>
+        <item>Tree</item>
+        <item>Duck</item>
+        <item>House</item>
+        <item>Witch</item>
+        <item>Cow</item>
+        <item>Milk</item>
+        <item>Sheep</item>
+        <item>Street</item>
+        <item>Chair</item>
+    </string-array>
+
+</resources>
