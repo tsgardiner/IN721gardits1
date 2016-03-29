@@ -2,6 +2,8 @@
     <string name="app_name">LanguageTrainer</string>
     <string name="startbutton">Start</string>
     <string name="confirmbutton">Enter</string>
+    <string name="correctText">Correct</string>
+    <string name="incorrectText">Incorrect</string>
 
     <string name="finishedTitle">Questions Finished</string>
     <string name="score">Score</string>
@@ -20,4 +22,14 @@
         <item>Die</item>
         <item>Das</item>
     </string-array>
+
+    <string name="startScreenTitle">German Noun Genders</string>
+    <string name="startScreenClickAny">Tap Screen to Begin</string>
+
+    <string name="startScreen">
+        The aim of this game is to learn the associated gender of each example displayed.
+        Correct or Incorrect will be displayed for the previous questions answer.
+        An example is below:
+    </string>
+
 </resources>

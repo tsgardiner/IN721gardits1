@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuestionDisplayActivity extends AppCompatActivity implements IConfirmResullt{
@@ -19,6 +21,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
 //    Will basically just change the Image based on the question loaded by the QuestionManager
 
     private Spinner answerSpinner;
+    private TextView answerResult;
     private ConfirmAnswer confirmAnswer;
     public Question currentQuestion = null;
     private int CURRENT_QUESTION_INDEX = 0; // Set to first question in questions list.
@@ -39,7 +42,11 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
             questionImage.setImageResource(id);
         }
 
+        //Enter button
         Button answerQuestion = (Button) findViewById(R.id.btnConfrimAns);
+
+        //Display Correct / Incorrect Text
+        answerResult = (TextView) findViewById(R.id.tvCorrectIncorrect);
 
         //Spinner setup
         answerSpinner = (Spinner) findViewById(R.id.ansSpinner);
@@ -75,12 +82,14 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
 
         if (confirmation) {
             if (currentQuestion.article.equals(answerSpinner.getSelectedItem().toString())) {
-                Toast.makeText(QuestionDisplayActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+                answerResult.setText(R.string.correctText);
+                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorCorrect ));
                 CURRENT_SCORE++;
                 QuestionManager.setScore(CURRENT_SCORE);
                 nextQuestion();
             } else {
-                Toast.makeText(QuestionDisplayActivity.this, "Incorrect", Toast.LENGTH_SHORT).show();
+                answerResult.setText(R.string.incorrectText);
+                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorIncorrect));
                 nextQuestion();
             }
         }

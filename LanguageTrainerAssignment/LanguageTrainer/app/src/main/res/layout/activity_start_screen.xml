@@ -7,13 +7,63 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="bit.gardits1.languagetrainer.StartScreenActivity">
+    tools:context="bit.gardits1.languagetrainer.StartScreenActivity"
+    android:nestedScrollingEnabled="false"
+    android:longClickable="false"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/startbutton"
-        android:id="@+id/btnStart"
-        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/startScreenTitle"
+        android:id="@+id/tvStartScreenTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/startScreen"
+        android:id="@+id/tvIntroduction"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/tvStartScreenTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/screenexample"
+        android:id="@+id/ivExampleScreen"
+        android:layout_below="@+id/tvIntroduction"
+        android:layout_alignRight="@+id/tvScreenTap"
+        android:layout_alignEnd="@+id/tvScreenTap" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/startScreenClickAny"
+        android:id="@+id/tvScreenTap"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:focusable="true"
+        android:id="@+id/rlClickableScreen"></RelativeLayout>
 </RelativeLayout>

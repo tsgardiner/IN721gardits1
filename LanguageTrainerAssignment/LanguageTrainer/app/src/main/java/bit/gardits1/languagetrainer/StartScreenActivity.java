@@ -3,8 +3,11 @@ package bit.gardits1.languagetrainer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.lang.reflect.Array;
 
@@ -25,17 +28,18 @@ public class StartScreenActivity extends AppCompatActivity {
 
         setQuestionManager();
 
-        Button startButton = (Button) findViewById(R.id.btnStart);
-        startButton.setOnClickListener(new startButtonHandler());
+        RelativeLayout clickScreen = (RelativeLayout) findViewById(R.id.rlClickableScreen);
+        clickScreen.setOnTouchListener(new startHandler());
     }
 
-    public class startButtonHandler implements View.OnClickListener
+    public class startHandler implements View.OnTouchListener
     {
 
         @Override
-        public void onClick(View v) {
+        public boolean onTouch(View v, MotionEvent event) {
             Intent openQuestionGame = new Intent(StartScreenActivity.this, QuestionDisplayActivity.class);
             startActivity(openQuestionGame);
+            return true;
         }
     }
 
