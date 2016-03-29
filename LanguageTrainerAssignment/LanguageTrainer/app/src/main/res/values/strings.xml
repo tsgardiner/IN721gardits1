@@ -2,6 +2,11 @@
     <string name="app_name">LanguageTrainer</string>
     <string name="startbutton">Start</string>
     <string name="confirmbutton">Confirm Answer</string>
+
+    <string name="finishedTitle">Finished</string>
+    <string name="score">Score</string>
+    <string name="playAgainButton">Play Again</string>
+
     <string name="Der">Der</string>
     <string name="Das">Das</string>
     <string name="Die">Die</string>

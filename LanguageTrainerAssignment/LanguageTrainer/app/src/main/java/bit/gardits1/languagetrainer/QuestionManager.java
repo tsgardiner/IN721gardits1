@@ -18,6 +18,7 @@ public class QuestionManager {
     public static ArrayList<Question> questionsList;
     String[] nouns;
     String[] englishWords;
+    public static int score = 0;
 
     private String DER = "Der";
     private String DAS = "Das";
@@ -56,6 +57,5 @@ public class QuestionManager {
         for (int i = 0; i < 100; i++)
             Collections.shuffle(questionsList);
     }
-
 
 }

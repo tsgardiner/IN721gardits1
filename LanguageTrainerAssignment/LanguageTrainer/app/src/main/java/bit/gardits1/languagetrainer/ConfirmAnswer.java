@@ -26,9 +26,9 @@ public class ConfirmAnswer extends DialogFragment {
         builder.setNegativeButton("No", new NoButtonHandler());
 
 
-        Dialog confrimDialog = builder.create();
+        Dialog confirmDialog = builder.create();
 
-        return confrimDialog;
+        return confirmDialog;
     }
 
     public class YesButtonHandler implements DialogInterface.OnClickListener {
