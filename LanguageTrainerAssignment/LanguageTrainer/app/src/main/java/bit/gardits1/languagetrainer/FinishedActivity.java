@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
-
 public class FinishedActivity extends AppCompatActivity {
 
 //    TODO Basic finished screen that displays score and option to play again.
@@ -16,7 +14,7 @@ public class FinishedActivity extends AppCompatActivity {
 
 
     double currentScore = QuestionManager.getScore();
-    double numQuestions = QuestionManager.questionsList.size();
+    double numOfQuestions = QuestionManager.questionsList.size();
     double percentScore;
 
     @Override
@@ -26,9 +24,11 @@ public class FinishedActivity extends AppCompatActivity {
 
         Button playAgain = (Button) findViewById(R.id.btnPlayAgain);
         TextView score = (TextView) findViewById(R.id.tvScore);
+        TextView fractionScore = (TextView) findViewById(R.id.tvFractionScore);
 
-        percentScore = (currentScore / numQuestions) * 100;
+        percentScore = (currentScore / numOfQuestions) * 100;
 
+        fractionScore.setText(currentScore + " / " + numOfQuestions);
         score.setText(String.format("%.2f", percentScore) + "%");
 
         if (playAgain != null) {

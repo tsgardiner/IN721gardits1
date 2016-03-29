@@ -16,7 +16,8 @@
         android:text="@string/finishedTitle"
         android:id="@+id/tvFinishedTitle"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/abc_action_button_min_width_overflow_material" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,9 +25,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/score"
         android:id="@+id/textView2"
-        android:layout_below="@+id/tvFinishedTitle"
+        android:layout_above="@+id/tvFractionScore"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="73dp" />
+        android:layout_marginBottom="52dp"
+        android:textSize="@dimen/abc_dialog_padding_material" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,8 +36,14 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
         android:id="@+id/tvScore"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/btnPlayAgain"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="45dp"
+        android:layout_alignRight="@+id/btnPlayAgain"
+        android:layout_alignEnd="@+id/btnPlayAgain"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_dialog_padding_material" />
 
     <Button
         android:layout_width="wrap_content"
@@ -43,5 +51,23 @@
         android:text="@string/playAgainButton"
         android:id="@+id/btnPlayAgain"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="51dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvFractionScore"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_dialog_padding_material" />
+
 </RelativeLayout>
