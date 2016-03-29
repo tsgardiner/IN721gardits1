@@ -18,7 +18,17 @@ public class QuestionManager {
     public static ArrayList<Question> questionsList;
     String[] nouns;
     String[] englishWords;
-    public static int score = 0;
+    private static int score = 0;
+
+    public static int getScore() {
+        return score;
+    }
+
+    public static void setScore(int score) {
+        QuestionManager.score = score;
+    }
+
+
 
     private String DER = "Der";
     private String DAS = "Das";

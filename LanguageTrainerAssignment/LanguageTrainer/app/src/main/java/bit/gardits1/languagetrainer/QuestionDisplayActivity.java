@@ -74,12 +74,13 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         confirmAnswer.dismiss();
 
         if (currentQuestion.article.equals(answerSpinner.getSelectedItem().toString())) {
-            Toast.makeText(QuestionDisplayActivity.this, "Correct", Toast.LENGTH_LONG).show();
-            QuestionManager.score = CURRENT_SCORE++;
+            Toast.makeText(QuestionDisplayActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+            CURRENT_SCORE++;
+            QuestionManager.setScore(CURRENT_SCORE);
             nextQuestion();
         }
         else {
-            Toast.makeText(QuestionDisplayActivity.this, "Incorrect", Toast.LENGTH_LONG).show();
+            Toast.makeText(QuestionDisplayActivity.this, "Incorrect", Toast.LENGTH_SHORT).show();
             nextQuestion();
         }
 
