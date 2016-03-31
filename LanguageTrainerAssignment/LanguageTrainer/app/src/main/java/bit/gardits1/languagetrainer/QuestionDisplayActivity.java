@@ -1,9 +1,7 @@
 package bit.gardits1.languagetrainer;
 
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,11 +19,14 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
 //    Will basically just change the Image based on the question loaded by the QuestionManager
 
     private Spinner answerSpinner;
-    private TextView answerResult;
+    private TextView answerResult, tvDisplayCurrent;
     private ConfirmAnswer confirmAnswer;
     public Question currentQuestion = null;
     private int CURRENT_QUESTION_INDEX = 0; // Set to first question in questions list.
     private int CURRENT_SCORE = 0;
+    private int NUMBER_OF_QUESTIONS = 11;
+    Button btnAnswerQuestion;
+    Button btnNextQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,14 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         }
 
         //Enter button
-        Button answerQuestion = (Button) findViewById(R.id.btnConfrimAns);
+        btnAnswerQuestion = (Button) findViewById(R.id.btnConfrimAns);
+        //Next Question button
+        btnNextQuestion = (Button) findViewById(R.id.btnNextQuestion);
 
         //Display Correct / Incorrect Text
         answerResult = (TextView) findViewById(R.id.tvCorrectIncorrect);
+        //Display current question number
+        updateQuestionDisplay();
 
         //Spinner setup
         answerSpinner = (Spinner) findViewById(R.id.ansSpinner);
@@ -55,8 +60,11 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         ArrayAdapter<String> choicesAdapter = new ArrayAdapter<>(this, layoutId, choices);
         answerSpinner.setAdapter(choicesAdapter);
 
-        if (answerQuestion != null) {   //AS was complaining so let it put this in.
-            answerQuestion.setOnClickListener(new OpenConfirmationHandler());
+        if (btnAnswerQuestion != null) {   //AS was complaining so let it put this in.
+            btnAnswerQuestion.setOnClickListener(new OpenConfirmationHandler());
+        }
+        if (btnNextQuestion != null) {
+            btnNextQuestion.setOnClickListener(new NextQuestionHandler());
         }
 
     }
@@ -67,7 +75,7 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         @Override
         public void onClick(View v) {
             if(answerSpinner.getSelectedItem().equals("Select an answer"))
-                Toast.makeText(QuestionDisplayActivity.this, "Please select an answer.", Toast.LENGTH_LONG).show();
+                Toast.makeText(QuestionDisplayActivity.this, "Please select an answer.", Toast.LENGTH_SHORT).show();
             else{
                 confirmAnswer = new ConfirmAnswer();
                 FragmentManager fm = getFragmentManager();
@@ -76,30 +84,58 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         }
     }
 
-    @Override
+    public class NextQuestionHandler implements View.OnClickListener
+    {
+
+        @Override
+        public void onClick(View v) {
+            nextQuestion();
+            
+            if ((CURRENT_QUESTION_INDEX +1) == NUMBER_OF_QUESTIONS)
+                btnNextQuestion.setText(R.string.seeresultsbutton); //Change text of next question button
+
+            btnAnswerQuestion.setVisibility(View.VISIBLE); //Switch buttons over
+            btnNextQuestion.setVisibility(View.INVISIBLE);
+            answerSpinner.setSelection(0); //Reset Spinner
+            answerResult.setText(""); //Clear result text
+            answerSpinner.setEnabled(true); //Turn spinner back on
+            updateQuestionDisplay();
+        }
+    }
+
+
     public void confirmationResult(Boolean confirmation) {
         confirmAnswer.dismiss();
 
         if (confirmation) {
+            answerSpinner.setEnabled(false);
             if (currentQuestion.article.equals(answerSpinner.getSelectedItem().toString())) {
                 answerResult.setText(R.string.correctText);
-                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorCorrect ));
+                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorCorrect));
                 CURRENT_SCORE++;
                 QuestionManager.setScore(CURRENT_SCORE);
-                nextQuestion();
+                btnAnswerQuestion.setVisibility(View.INVISIBLE);
+                btnNextQuestion.setVisibility(View.VISIBLE);
             } else {
                 answerResult.setText(R.string.incorrectText);
                 answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorIncorrect));
-                nextQuestion();
+                btnAnswerQuestion.setVisibility(View.INVISIBLE);
+                btnNextQuestion.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public void updateQuestionDisplay()
+    {
+        tvDisplayCurrent = (TextView) findViewById(R.id.tvCurrentQuestion);
+        tvDisplayCurrent.setText("Question:   " + (CURRENT_QUESTION_INDEX +1)  + " / " + NUMBER_OF_QUESTIONS);
     }
 
     public void nextQuestion()
     {
         int numQuestions = QuestionManager.questionsList.size();
 
-        if (CURRENT_QUESTION_INDEX < numQuestions - 1) {
+        if ((CURRENT_QUESTION_INDEX +1) < numQuestions) {
             CURRENT_QUESTION_INDEX++;
             currentQuestion = QuestionManager.questionsList.get(CURRENT_QUESTION_INDEX);
 

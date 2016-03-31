@@ -2,8 +2,11 @@
     <string name="app_name">LanguageTrainer</string>
     <string name="startbutton">Start</string>
     <string name="confirmbutton">Enter</string>
+    <string name="nextbutton">Next Question</string>
     <string name="correctText">Correct</string>
     <string name="incorrectText">Incorrect</string>
+    <string name="questionDisplay">Question</string>
+    <string name="seeresultsbutton">View Results</string>
 
     <string name="finishedTitle">Questions Finished</string>
     <string name="score">Score</string>
