@@ -5,6 +5,8 @@
     <string name="nextbutton">Next Question</string>
     <string name="correctText">Correct</string>
     <string name="incorrectText">Incorrect</string>
+    <string name="questionDisplay">Question</string>
+    <string name="seeresultsbutton">View Results</string>
 
     <string name="finishedTitle">Questions Finished</string>
     <string name="score">Score</string>
