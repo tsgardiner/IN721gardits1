@@ -1,9 +1,7 @@
 package bit.gardits1.languagetrainer;
 
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +24,8 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
     public Question currentQuestion = null;
     private int CURRENT_QUESTION_INDEX = 0; // Set to first question in questions list.
     private int CURRENT_SCORE = 0;
+    Button btnAnswerQuestion;
+    Button btnNextQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,8 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         }
 
         //Enter button
-        Button answerQuestion = (Button) findViewById(R.id.btnConfrimAns);
+        btnAnswerQuestion = (Button) findViewById(R.id.btnConfrimAns);
+        btnNextQuestion = (Button) findViewById(R.id.btnNextQuestion);
 
         //Display Correct / Incorrect Text
         answerResult = (TextView) findViewById(R.id.tvCorrectIncorrect);
@@ -55,8 +56,11 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         ArrayAdapter<String> choicesAdapter = new ArrayAdapter<>(this, layoutId, choices);
         answerSpinner.setAdapter(choicesAdapter);
 
-        if (answerQuestion != null) {   //AS was complaining so let it put this in.
-            answerQuestion.setOnClickListener(new OpenConfirmationHandler());
+        if (btnAnswerQuestion != null) {   //AS was complaining so let it put this in.
+            btnAnswerQuestion.setOnClickListener(new OpenConfirmationHandler());
+        }
+        if (btnNextQuestion != null) {
+            btnNextQuestion.setOnClickListener(new NextQuestionHandler());
         }
 
     }
@@ -76,21 +80,36 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
         }
     }
 
-    @Override
+    public class NextQuestionHandler implements View.OnClickListener
+    {
+
+        @Override
+        public void onClick(View v) {
+            nextQuestion();
+            btnAnswerQuestion.setVisibility(View.VISIBLE); //Switch buttons over
+            btnNextQuestion.setVisibility(View.INVISIBLE);
+            answerSpinner.setSelection(0); //Reset Spinner
+            answerResult.setText(""); //Clear result text
+        }
+    }
+
+
     public void confirmationResult(Boolean confirmation) {
         confirmAnswer.dismiss();
 
         if (confirmation) {
             if (currentQuestion.article.equals(answerSpinner.getSelectedItem().toString())) {
                 answerResult.setText(R.string.correctText);
-                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorCorrect ));
+                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorCorrect));
                 CURRENT_SCORE++;
                 QuestionManager.setScore(CURRENT_SCORE);
-                nextQuestion();
+                btnAnswerQuestion.setVisibility(View.INVISIBLE);
+                btnNextQuestion.setVisibility(View.VISIBLE);
             } else {
                 answerResult.setText(R.string.incorrectText);
                 answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorIncorrect));
-                nextQuestion();
+                btnAnswerQuestion.setVisibility(View.INVISIBLE);
+                btnNextQuestion.setVisibility(View.VISIBLE);
             }
         }
     }
