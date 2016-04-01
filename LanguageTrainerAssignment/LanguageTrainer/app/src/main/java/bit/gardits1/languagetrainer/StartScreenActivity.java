@@ -44,11 +44,12 @@ public class StartScreenActivity extends AppCompatActivity {
     }
 
 
+
+
     public void setQuestionManager()
     {
         nouns = getResources().getStringArray(R.array.nouns);
         englishWords = getResources().getStringArray(R.array.englishwords);
-
         questionManager = new QuestionManager(nouns, englishWords);
     }
 }
