@@ -111,7 +111,10 @@ public class QuestionDisplayActivity extends AppCompatActivity implements IConfi
             answerSpinner.setEnabled(false);
             if (currentQuestion.article.equals(answerSpinner.getSelectedItem().toString())) {
                 answerResult.setText(R.string.correctText);
-                answerResult.setTextColor(ContextCompat.getColor(this, R.color.colorCorrect));
+
+                int colourCorrect = ContextCompat.getColor(this, R.color.colorCorrect);
+                answerResult.setTextColor(colourCorrect);
+
                 CURRENT_SCORE++;
                 QuestionManager.setScore(CURRENT_SCORE);
                 btnAnswerQuestion.setVisibility(View.INVISIBLE);
