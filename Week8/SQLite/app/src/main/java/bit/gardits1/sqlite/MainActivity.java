@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
     DatabaseBuilder databaseBuilder;
-    SQLiteDatabase cityCountyDB;
+    SQLiteDatabase cityCountryDB;
     ListView lvCities;
     Spinner spCountries;
 
@@ -23,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cityCountyDB = openOrCreateDatabase("cityCountyDB", MODE_PRIVATE, null);
-        databaseBuilder = new DatabaseBuilder(cityCountyDB);
+        cityCountryDB = openOrCreateDatabase("cityCountryDB", MODE_PRIVATE, null);
+        databaseBuilder = new DatabaseBuilder(cityCountryDB);
 
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
         lvCities = (ListView) findViewById(R.id.lvCities);
@@ -33,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         //DatabaseListViewTest();
         SetCountrySpinner();
 
+        assert btnSearch != null;
+        btnSearch.setOnClickListener(new SearchSelectedCountry());
+
     }
 
     public class SearchSelectedCountry implements View.OnClickListener
@@ -40,15 +41,41 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-
+            String searchedCountry = spCountries.getSelectedItem().toString();
+            DisplayCities(searchedCountry);
         }
+    }
+
+
+    public void DisplayCities(String countrySearched)
+    {
+        String selectCountry = "SELECT cityName from tblCity WHERE countryName LIKE ";
+        selectCountry += "'" + countrySearched + "'";
+        Cursor citySet = cityCountryDB.rawQuery(selectCountry, null);
+
+        int cityCount = citySet.getCount();
+        String[] displayCityArray = new String[cityCount];
+
+        int cityNameIndex = citySet.getColumnIndex("cityName");
+
+        citySet.moveToFirst();
+
+        for (int i = 0; i < cityCount; i++)
+        {
+            String cityName = citySet.getString(cityNameIndex);
+            displayCityArray[i] = cityName;
+            citySet.moveToNext();
+        }
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, displayCityArray);
+        lvCities.setAdapter(cityAdapter);
     }
 
 
     public void SetCountrySpinner()
     {
         String selectCountry = "SELECT DISTINCT countryName from tblCity";
-        Cursor countrySet = cityCountyDB.rawQuery(selectCountry, null);
+        Cursor countrySet = cityCountryDB.rawQuery(selectCountry, null);
 
         int countryCount = countrySet.getCount();
         String[] displayCountryArray = new String[countryCount];
@@ -68,11 +95,14 @@ public class MainActivity extends AppCompatActivity {
         spCountries.setAdapter(countryAdapter);
     }
 
+
+
+
     //Testing if the database displays correct data.
     public void DatabaseListViewTest()
     {
         String selectQuery = "SELECT * FROM tblCity";
-        Cursor recordSet = cityCountyDB.rawQuery(selectQuery, null);
+        Cursor recordSet = cityCountryDB.rawQuery(selectQuery, null);
 
         int recordCount = recordSet.getCount();
         String[] displayStringArray = new String[recordCount];

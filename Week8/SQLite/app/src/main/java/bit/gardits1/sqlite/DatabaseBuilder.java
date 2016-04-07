@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class DatabaseBuilder {
 
-    SQLiteDatabase cityCountyDB;
+    SQLiteDatabase cityCountryDB;
 
-    public DatabaseBuilder(SQLiteDatabase cityCountyDB) {
-        this.cityCountyDB = cityCountyDB;
+    public DatabaseBuilder(SQLiteDatabase cityCountryDB) {
+        this.cityCountryDB = cityCountryDB;
 
         DropTable(); //Crude way of stopping duplicate data every runtime.
         CreateTable();
@@ -19,8 +19,8 @@ public class DatabaseBuilder {
 
     private void DropTable()
     {
-        String dropTable = "DROP TABLE tblCity";
-        cityCountyDB.execSQL(dropTable);
+        String dropTable = "DROP TABLE IF EXISTS tblCity";
+        cityCountryDB.execSQL(dropTable);
     }
 
     private void CreateTable()
@@ -29,18 +29,18 @@ public class DatabaseBuilder {
                                 "cityId INTEGER PRIMARY KEY AUTOINCREMENT," +
                                 "cityName TEXT NOT NULL," +
                                 "countryName TEXT NOT NULL);";
-        cityCountyDB.execSQL(createQuery);
+        cityCountryDB.execSQL(createQuery);
     }
 
     private void InsertRecords()
     {
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Amsterdamn', 'The Netherlands')");
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Berlin', 'Germany')");
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Munich', 'Germany')");
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Paris', 'France')");
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Nice', 'France')");
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Brighton', 'England')");
-        cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('London', 'England')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Amsterdamn', 'The Netherlands')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Berlin', 'Germany')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Munich', 'Germany')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Paris', 'France')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Nice', 'France')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Brighton', 'England')");
+        cityCountryDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('London', 'England')");
     }
 
 
