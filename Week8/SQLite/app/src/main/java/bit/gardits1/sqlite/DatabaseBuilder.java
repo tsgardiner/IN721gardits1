@@ -12,8 +12,15 @@ public class DatabaseBuilder {
     public DatabaseBuilder(SQLiteDatabase cityCountyDB) {
         this.cityCountyDB = cityCountyDB;
 
+        DropTable(); //Crude way of stopping duplicate data every runtime.
         CreateTable();
         InsertRecords();
+    }
+
+    private void DropTable()
+    {
+        String dropTable = "DROP TABLE tblCity";
+        cityCountyDB.execSQL(dropTable);
     }
 
     private void CreateTable()
@@ -35,5 +42,7 @@ public class DatabaseBuilder {
         cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('Brighton', 'England')");
         cityCountyDB.execSQL("INSERT INTO tblCity (cityName, countryName) VALUES('London', 'England')");
     }
+
+
 
 }
