@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Multiple Activities</string>
+    <string name="screenOneName">Activity A</string>
+    <string name="screenTwoName">Activity B</string>
+    <string name="screenThreeName">Activity C</string>
+
+    <string name="buttonOneName">Change to Activity B</string>
+    <string name="buttonTwoName">Change to Activity C</string>
+    <string name="buttonThreeName">Open Web Page</string>
+
+</resources>
