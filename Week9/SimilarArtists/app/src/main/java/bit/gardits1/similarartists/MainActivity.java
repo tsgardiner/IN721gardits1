@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
+    EditText searchedText;
     ArrayList<String> similarArtistsList;
 
     @Override
@@ -46,22 +48,26 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            similarArtistsList.clear();
             AsyncApiJson asyncApiJson = new AsyncApiJson();
-            asyncApiJson.execute();
+            String search = GetSearchedText();
+            asyncApiJson.execute(search);
         }
     }
 
-    public class AsyncApiJson extends AsyncTask<Void, Void, String>
+    public class AsyncApiJson extends AsyncTask<String, Void, String>
     {
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(String... params) {
             String jsonString = null;
+            String searchedArtist = params[0];
 
             String url  =   "http://ws.audioscrobbler.com/2.0/" +
                     "?method=" +
                     "artist.getSimilar" +
-                    "&artist=Tool" +
+                    "&artist=" +
+                    searchedArtist +
                     "&api_key=58384a2141a4b9737eacb9d0989b8a8c" +
                     "&limit=10" +
                     "&format=json";
@@ -124,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lvArtists);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, similarArtistsList);
         listView.setAdapter(arrayAdapter);
+    }
+
+    public String GetSearchedText()
+    {
+        searchedText = (EditText) findViewById(R.id.etSearch);
+        return searchedText.getText().toString();
     }
 
 
