@@ -2,30 +2,45 @@ package bit.gardits1.teleporterapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
-import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements LatLongRandom{
+public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
-    Random random;
+    double latitude;
+    double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GenerateLatitude();
+        GenerateLongitude();
+
+        TextView lat = (TextView) findViewById(R.id.tvLatitudeDisplay);
+        TextView lon = (TextView) findViewById(R.id.tvLongitudeDisplay);
+
+
+        lat.setText(Double.toString(latitude));
+        lon.setText(Double.toString(longitude));
     }
 
 
     @Override
-    public double GenerateLatitude() {
-        random = new Random();
-        double lat = random.nextDouble();
-        return 0;
+    public double GenerateRandomDouble(double min, double max) {
+        double number = min + Math.random() * (max - min);
+        return number;
     }
 
     @Override
-    public double GenerateLongitude() {
-        return 0;
+    public void GenerateLatitude() {
+        latitude = GenerateRandomDouble(-90, 90);
+    }
+
+    @Override
+    public void GenerateLongitude() {
+        longitude = GenerateRandomDouble(-180, 180);
     }
 
     @Override

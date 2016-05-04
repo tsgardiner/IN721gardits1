@@ -5,8 +5,9 @@ package bit.gardits1.teleporterapp;
  */
 public interface LatLongRandom {
 
-    double GenerateLatitude();
-    double GenerateLongitude();
+    double GenerateRandomDouble(double min, double max);
+    void GenerateLatitude();
+    void GenerateLongitude();
     void DisplayLatLong();
 
 }
