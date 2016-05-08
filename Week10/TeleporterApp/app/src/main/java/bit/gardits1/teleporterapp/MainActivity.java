@@ -120,28 +120,24 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
 
         protected void onPostExecute(String fetchedString) {
-                DisplayJson(fetchedString);
-        }
-    }
+            try {
+                TextView cityText = (TextView) findViewById(R.id.tvCityName);
+                JSONObject place = new JSONObject(fetchedString);
+                String cityName = place.optString("geoplugin_place");
+                String country = place.optString("geoplugin_countryCode");
 
-    public void DisplayJson(String fetchedString)
-    {
-
-        try {
-            TextView cityText = (TextView) findViewById(R.id.tvCityName);
-            JSONObject place = new JSONObject(fetchedString);
-            String cityName = place.optString("geoplugin_place");
-            String country = place.optString("geoplugin_countryCode");
-
-            if (cityName != null && country != null){
-                cityText.setText(cityName + " : " + country);
-            } else  {
-                cityText.setText("Not a location!");
+                if (cityName != null && country != null){
+                    cityText.setText(cityName + " : " + country);
+                } else  {
+                    cityText.setText("Not a location!");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_LONG).show();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
+
 }
 
 
