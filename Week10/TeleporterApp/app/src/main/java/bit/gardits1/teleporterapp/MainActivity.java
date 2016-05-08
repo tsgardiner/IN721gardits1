@@ -61,17 +61,22 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
         lon.setText(String.valueOf(longitude));
     }
 
+    public void GenerateLocation()
+    {
+        GenerateLatitude();
+        GenerateLongitude();
+        DisplayLatLong();
+
+        AsyncApiJson asyncApiJson = new AsyncApiJson();
+        asyncApiJson.execute(String.valueOf(latitude), String.valueOf(longitude));
+    }
+
     public class DisplayStuff implements View.OnClickListener
     {
 
         @Override
         public void onClick(View v) {
-            GenerateLatitude();
-            GenerateLongitude();
-            DisplayLatLong();
-
-            AsyncApiJson asyncApiJson = new AsyncApiJson();
-            asyncApiJson.execute(String.valueOf(latitude), String.valueOf(longitude));
+            GenerateLocation();
         }
     }
 
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
         protected void onPostExecute(String fetchedString) {
             try {
                 TextView cityText = (TextView) findViewById(R.id.tvCityName);
-                JSONObject place = new JSONObject(fetchedString);
+                JSONObject place = new JSONObject(fetchedString); //If fetchedString is [[]] it always throws an exception as it's not json...apparently.
                 String cityName = place.optString("geoplugin_place");
                 String country = place.optString("geoplugin_countryCode");
 
@@ -133,10 +138,16 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_SHORT).show();
+
+                //If json exception is caught from [[]]. Generate new random locations and check for location again.
+                GenerateLocation();
             }
         }
     }
+
+
+
 
 }
 
