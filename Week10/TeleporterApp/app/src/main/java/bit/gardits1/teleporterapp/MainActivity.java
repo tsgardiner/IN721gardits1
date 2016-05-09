@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
 
         protected void onPostExecute(String fetchedString) {
-            int count = 0;
             try {
                 TextView cityText = (TextView) findViewById(R.id.tvCityName);
                 JSONObject place = new JSONObject(fetchedString); //If fetchedString is [[]] it always throws an exception as it's not json...apparently.
@@ -153,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
                 if (cityName != null && country != null){
                     progressDialog.dismiss();
-                    count = 0;
                     cityText.setText(cityName + " : " + country);
                 } else  {
                     cityText.setText("Not a location!");
@@ -162,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
                 e.printStackTrace();
                 //Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_SHORT).show();
 
-                count++;
+
                 //If json exception is caught from [[]]. Generate new random locations and check for location again.
                 GenerateLocation();
             }
@@ -170,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
 
     }
+
+
+
 
 
 
