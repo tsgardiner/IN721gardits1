@@ -1,12 +1,18 @@
 package bit.gardits1.teleporterapp;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -14,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -23,11 +30,17 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
     double longitude;
     int count = 0;
     ProgressDialog progressDialog;
+    private Bitmap displayImage;
+    private ImageView imageView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        imageView = (ImageView) findViewById(R.id.ivCityImage);
 
         Button display = (Button) findViewById(R.id.button);
         display.setOnClickListener(new DisplayStuff());
@@ -78,12 +91,8 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
         }
     }
 
-
-
     public class AsyncApiJson extends AsyncTask<String, Integer, String>
     {
-
-
 
         public AsyncApiJson()
         {
@@ -153,13 +162,14 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
                 if (cityName != null && country != null){
                     progressDialog.dismiss();
                     cityText.setText(cityName + " : " + country);
+                    CityImageAsyncTask cityImageAsyncTask = new CityImageAsyncTask();
+                    cityImageAsyncTask.execute(cityName);
                 } else  {
                     cityText.setText("Not a location!");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 //Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_SHORT).show();
-
 
                 //If json exception is caught from [[]]. Generate new random locations and check for location again.
                 GenerateLocation();
@@ -169,11 +179,123 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
     }
 
+    public class CityImageAsyncTask extends AsyncTask<String, Void, String>
+    {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String jsonString = null;
+            String cityName = params[0];
+
+            String url =    "https://api.flickr.com/services/rest/?" +
+                    "method=flickr.photos.search&" +
+                    "api_key=eda41a123d459be0f85276d37290651e&" +
+                    "text=" +
+                    cityName +
+                    "&format=json&nojsoncallback=1";
+
+            Log.e("Url", url);
 
 
+            try {
+                URL urlObject = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
+                connection.connect();
+
+                int responseCode = connection.getResponseCode();
+
+                if (responseCode == 200) {
+                    InputStream is = connection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+
+                    String responseString;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((responseString = bufferedReader.readLine()) != null) {
+                        stringBuilder = stringBuilder.append(responseString);
+                    }
+                    jsonString = stringBuilder.toString();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return jsonString;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            String imageURL;
+            Log.e("String", s);
+            try {
+                JSONObject cityImages = new JSONObject(s);
+                JSONObject photos = cityImages.getJSONObject("photos");
+                JSONArray photo = photos.getJSONArray("photo");
+                JSONObject image = photo.getJSONObject(0);
+                String farmId = image.getString("farm");
+                String serverId = image.getString("server");
+                String photoId = image.getString("id");
+                String secret = image.getString("secret");
+                String size = "n";
+
+                imageURL = "https://farm" +
+                        farmId +
+                        ".staticflickr.com/" +
+                        serverId + "/" +
+                        photoId + "_" +
+                        secret + "_" +
+                        size + ".jpg";
+
+                Log.e("Url", imageURL);
+
+                AsyncCityImage asyncCityImage = new AsyncCityImage();
+                asyncCityImage.execute(imageURL);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class AsyncCityImage extends AsyncTask<String, Void, Bitmap>
+    {
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            Bitmap image = null;
+
+            String url = params[0];
+
+            try {
+                URL urlObject = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
+                connection.connect();
+
+                int responseCode = connection.getResponseCode();
+
+                if (responseCode == 200) {
+                    InputStream is = connection.getInputStream();
+
+                    image = BitmapFactory.decodeStream(is);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return image;
+        }
 
 
+        protected void onPostExecute(Bitmap image)
+        {
+            displayImage = image;
+            ShowImage();
+        }
+    }
 
+    public void ShowImage() {
+        ImageView imageView = (ImageView) findViewById(R.id.ivCityImage);
+        imageView.setImageBitmap(displayImage);
+    }
 
 }
 

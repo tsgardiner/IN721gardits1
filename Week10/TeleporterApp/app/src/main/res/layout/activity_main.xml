@@ -72,10 +72,21 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/tvCityName"
+        android:layout_marginTop="57dp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="102dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/tvLongitudeDisplay"
+        android:layout_alignEnd="@+id/tvLongitudeDisplay" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivCityImage"
+        android:layout_below="@+id/tvCityName"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tvCityName"
+        android:layout_alignEnd="@+id/tvCityName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
