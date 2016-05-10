@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -162,15 +163,18 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
                 if (cityName != null && country != null){
                     progressDialog.dismiss();
                     cityText.setText(cityName + " : " + country);
+
+                    String cityNoWhiteSpace = cityName.replace(" ", "");
                     CityImageAsyncTask cityImageAsyncTask = new CityImageAsyncTask();
-                    cityImageAsyncTask.execute(cityName);
+                    cityImageAsyncTask.execute(cityNoWhiteSpace);
                 } else  {
                     cityText.setText("Not a location!");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 //Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_SHORT).show();
-
+                TextView cityText = (TextView) findViewById(R.id.tvCityName);
+                cityText.setText("Not a location!");
                 //If json exception is caught from [[]]. Generate new random locations and check for location again.
                 GenerateLocation();
             }
