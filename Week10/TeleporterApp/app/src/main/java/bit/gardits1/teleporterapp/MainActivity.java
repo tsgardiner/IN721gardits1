@@ -6,12 +6,11 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -29,12 +27,10 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
     double latitude;
     double longitude;
-    int count = 0;
     ProgressDialog progressDialog;
     private Bitmap displayImage;
     private ImageView imageView;
-
-
+    TextView cityText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +38,10 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
         setContentView(R.layout.activity_main);
 
         imageView = (ImageView) findViewById(R.id.ivCityImage);
+        cityText = (TextView) findViewById(R.id.tvCityName);
 
         Button display = (Button) findViewById(R.id.button);
-        display.setOnClickListener(new DisplayStuff());
+        display.setOnClickListener(new ButtonDisplayStuff());
     }
 
 
@@ -78,44 +75,25 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
         GenerateLongitude();
         DisplayLatLong();
 
-        AsyncApiJson asyncApiJson = new AsyncApiJson();
+        AsyncNearestCityToLocation asyncApiJson = new AsyncNearestCityToLocation();
         asyncApiJson.execute(String.valueOf(latitude), String.valueOf(longitude));
     }
 
-    public class DisplayStuff implements View.OnClickListener
+    public class ButtonDisplayStuff implements View.OnClickListener
     {
         @Override
         public void onClick(View v) {
             GenerateLocation();
+            imageView.setImageBitmap(null);
             progressDialog = new ProgressDialog(MainActivity.this);
             progressDialog.show();
         }
     }
 
-    public class AsyncApiJson extends AsyncTask<String, Integer, String>
+    public class AsyncNearestCityToLocation extends AsyncTask<String, Integer, String>
     {
-
-        public AsyncApiJson()
-        {
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            super.onProgressUpdate(progress);
-            progressDialog.setProgress(progress[0]);
-        }
-
         @Override
         protected String doInBackground(String... params) {
-
-            publishProgress((int) ((count / (float) 100)));
-
             String jsonString = null;
             String lat = params[0];
             String lon = params[1];
@@ -155,17 +133,16 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
         protected void onPostExecute(String fetchedString) {
             try {
-                TextView cityText = (TextView) findViewById(R.id.tvCityName);
                 JSONObject place = new JSONObject(fetchedString); //If fetchedString is [[]] it always throws an exception as it's not json...apparently.
                 String cityName = place.optString("geoplugin_place");
                 String country = place.optString("geoplugin_countryCode");
 
                 if (cityName != null && country != null){
-                    progressDialog.dismiss();
-                    cityText.setText(cityName + " : " + country);
 
+                    cityText.setText(cityName + " : " + country);
                     String cityNoWhiteSpace = cityName.replace(" ", "");
-                    CityImageAsyncTask cityImageAsyncTask = new CityImageAsyncTask();
+
+                    AsyncGetImagesJson cityImageAsyncTask = new AsyncGetImagesJson();
                     cityImageAsyncTask.execute(cityNoWhiteSpace);
                 } else  {
                     cityText.setText("Not a location!");
@@ -173,19 +150,17 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
             } catch (JSONException e) {
                 e.printStackTrace();
                 //Toast.makeText(MainActivity.this, "Stupid exception thing for '[[]]'", Toast.LENGTH_SHORT).show();
-                TextView cityText = (TextView) findViewById(R.id.tvCityName);
                 cityText.setText("Not a location!");
                 //If json exception is caught from [[]]. Generate new random locations and check for location again.
                 GenerateLocation();
             }
         }
-
-
     }
 
-    public class CityImageAsyncTask extends AsyncTask<String, Void, String>
+    //Searches by city name for images.
+    //Returns a url string if there is an image available
+    public class AsyncGetImagesJson extends AsyncTask<String, Void, String>
     {
-
         @Override
         protected String doInBackground(String... params) {
             String jsonString = null;
@@ -197,10 +172,6 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
                     "text=" +
                     cityName +
                     "&format=json&nojsoncallback=1";
-
-            Log.e("Url", url);
-
-
             try {
                 URL urlObject = new URL(url);
                 HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
@@ -228,67 +199,39 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
 
         @Override
         protected void onPostExecute(String s) {
-            String imageURL;
-            Log.e("String", s);
-            try {
-                JSONObject cityImages = new JSONObject(s);
-                JSONObject photos = cityImages.getJSONObject("photos");
-                JSONArray photo = photos.getJSONArray("photo");
-                JSONObject image = photo.getJSONObject(0);
-                String farmId = image.getString("farm");
-                String serverId = image.getString("server");
-                String photoId = image.getString("id");
-                String secret = image.getString("secret");
-                String size = "n";
-
-                imageURL = "https://farm" +
-                        farmId +
-                        ".staticflickr.com/" +
-                        serverId + "/" +
-                        photoId + "_" +
-                        secret + "_" +
-                        size + ".jpg";
-
-                Log.e("Url", imageURL);
-
-                AsyncCityImage asyncCityImage = new AsyncCityImage();
+            String imageURL = CreateImageUrl(s);
+            AsyncCityImage asyncCityImage = new AsyncCityImage();
+            if (imageURL != null)
                 asyncCityImage.execute(imageURL);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            else
+                progressDialog.dismiss();
         }
     }
 
+
+
+    //Gets the image url and creates a returns a bitmap of that image.
     public class AsyncCityImage extends AsyncTask<String, Void, Bitmap>
     {
-
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap image = null;
-
             String url = params[0];
 
             try {
                 URL urlObject = new URL(url);
                 HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
                 connection.connect();
-
                 int responseCode = connection.getResponseCode();
-
                 if (responseCode == 200) {
                     InputStream is = connection.getInputStream();
-
                     image = BitmapFactory.decodeStream(is);
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return image;
         }
-
-
         protected void onPostExecute(Bitmap image)
         {
             displayImage = image;
@@ -297,8 +240,44 @@ public class MainActivity extends AppCompatActivity implements LatLongRandom {
     }
 
     public void ShowImage() {
-        ImageView imageView = (ImageView) findViewById(R.id.ivCityImage);
+        progressDialog.dismiss();
         imageView.setImageBitmap(displayImage);
+    }
+
+    //Create and returns a url String for the image of the City.
+    //Returns null if no City image is found
+    public String CreateImageUrl(String jsonString)
+    {
+        String imageURL = null;
+        try {
+            JSONObject cityImages = new JSONObject(jsonString);
+            JSONObject photos = cityImages.getJSONObject("photos");
+            int numberOfPhotos = photos.getInt("total");
+
+            if (numberOfPhotos != 0) {
+                JSONArray photo = photos.getJSONArray("photo");
+                JSONObject image = photo.getJSONObject(0);
+                String farmId = image.getString("farm");
+                String serverId = image.getString("server");
+                String photoId = image.getString("id");
+                String secret = image.getString("secret");
+                String size = "n"; //Size for small images
+
+                imageURL = "https://farm" +
+                        farmId +
+                        ".staticflickr.com/" +
+                        serverId + "/" +
+                        photoId + "_" +
+                        secret + "_" +
+                        size + ".jpg";
+            } else {
+                Toast.makeText(MainActivity.this, "No image for this City.", Toast.LENGTH_SHORT).show();
+                return imageURL;
+            }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        return imageURL;
     }
 
 }
