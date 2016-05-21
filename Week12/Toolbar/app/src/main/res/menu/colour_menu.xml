@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="Dead"
+        android:icon="@drawable/ic_sentiment_very_dissatisfied"
+        app:showAsAction="ifRoom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </item>
+    <item
+        android:id="@+id/action_search"
+        android:title="Sad"
+        android:icon="@drawable/ic_sentiment_dissatisfied"
+        app:showAsAction="ifRoom"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content">
+    </item>
+    <item
+        android:id="@+id/action_user"
+        android:title="Happy"
+        android:icon="@drawable/ic_mood_happy"
+        app:showAsAction="ifRoom"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content">
+    </item>
+
+
+</menu>
